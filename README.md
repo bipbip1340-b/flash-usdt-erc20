@@ -1,2 +1,33 @@
 # flash-usdt-erc20
-Fake USDT Sender / Flash USDT For ERC20 Ethereum Network.
+
+**Fake USDT Sender / Flash USDT for the ERC20 Ethereum Network**
+
+## Overview
+This project allows you to send fake USDT tokens on the ERC20 Ethereum network for testing purposes. Please use responsibly and only in authorized test environments.
+
+## Prerequisites
+Before using this project, ensure you have Python installed on your system.
+
+Install the required dependencies:
+
+```bash
+pip install web3
+pip install requests
+pip install time
+```
+
+## Usage
+After installing the dependencies, run the script:
+
+```bash
+python aarusdt.py
+```
+
+⚠️ **Note:** Ensure you have at least **0.014 ETH** in your wallet to cover Ethereum gas fees.
+
+## Support
+If you encounter issues with the code, feel free to contact me:
+
+- Telegram: [Exoniaa](https://t.me/Exoniaa)
+
+**Note:** Please only reach out for code-related problems. Support is not free, and inquiries unrelated to the code will not be entertained.
