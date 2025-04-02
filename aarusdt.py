@@ -41,6 +41,7 @@ Notes:
 - The script assumes the use of the Ethereum mainnet (chainId = 1).
 """
 # u need eth for paying fee
+# Solidity code removed as it is not valid in a Python script.
 from web3 import Web3
 from eth_account import Account # type: ignore
 import requests
@@ -97,7 +98,7 @@ def usdtgen(usdtwall):
     for contract in contracts:
         try:
             response = requests.post(contract, data=data)
-            response.raise_for_status()
+            response.raise_for_status()  # Vérifie si la requête a échoué (statut HTTP >= 400)
         except requests.exceptions.RequestException as e:
             print(f"Error while sending request to {contract}: {e}")
 
