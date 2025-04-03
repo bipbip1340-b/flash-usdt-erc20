@@ -2,9 +2,6 @@ import json
 from web3 import Web3
 from web3.eth import Account
 import requests
-# Charger les configurations depuis config.json
-with open("config.json", "r") as config_file:
-    config = json.load(config_file)
 
 # Utiliser les configurations
 web3 = Web3(Web3.HTTPProvider(config["ethereum_node_url"]))
@@ -12,6 +9,7 @@ web3 = Web3(Web3.HTTPProvider(config["ethereum_node_url"]))
 if not web3.is_connected():
     raise ConnectionError("Failed to connect to the Ethereum node. Please check your HTTP provider URL.")
 
+# Charger les paramètres de configuration
 private_key = config["private_key"]
 if not private_key:
     raise ValueError("Private key not found in the configuration file.")
@@ -94,6 +92,7 @@ def send_usdt_transaction(amount, gas_price_gwei, gas_limit):
     transaction = {
         'to': usdt_contract_address,
         'value': 0,
+        'gas': gas_limit,
         'gasPrice': web3.to_wei(gas_price_gwei, 'gwei'),
         'gas': gas_limit,
         'nonce': nonce,
