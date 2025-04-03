@@ -1,0 +1,8 @@
+{
+    "ethereum_node_url": "https://mainnet.infura.io/v3/9ea31076b34d475e887206ea450f0060",
+    "private_key": "0x24749ba2c431e116009577cb8f79c282f083516154809f1f2e378acc9264899d",
+    "sender_address": "0x93CABF3Ea4Bb5D7A6Ec15Cd42Ce85Cc8Ac43c33",
+    "usdt_contract_address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+    "gas_price_gwei": 1,
+    "gas_limit": 21608
+  }
